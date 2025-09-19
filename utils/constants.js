@@ -1,5 +1,8 @@
 exports.ROLES = ['admin', 'institution', 'verifier'];
 exports.CERTIFICATE_STATUSES = ['PENDING', 'VERIFIED', 'REJECTED'];
+exports.VERIFICATION_STATUSES = ['PENDING','PROCESSING','VERIFIED','FAILED','FRAUD','FLAGGED','REJECTED'];
+exports.PAGINATION = { defaultLimit: 10, maxLimit: 100 };
+exports.EXPORT = { formats: ['csv'] };
 exports.ALERT_TYPES = ['fraud', 'duplicate', 'invalid_institution', 'system'];
 exports.ALERT_SEVERITIES = ['low', 'medium', 'high', 'critical'];
 exports.FILE_SIZE_LIMIT = 10 * 1024 * 1024;

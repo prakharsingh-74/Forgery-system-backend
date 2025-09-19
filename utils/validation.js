@@ -7,21 +7,31 @@ const accountTypeEnum = [
   'System Administrator'
 ];
 
+
 exports.registrationSchema = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().min(8).required(),
   confirmPassword: Joi.string().valid(Joi.ref('password')).required()
     .messages({'any.only':'Passwords must match'}),
-  fullName: Joi.string().required(),
+  name: Joi.string().required(),
   accountType: Joi.string().valid(...accountTypeEnum).required(),
   organization: Joi.string().allow('', null),
-  phoneNumber: Joi.string().pattern(/^\+?[0-9]{10,15}$/).allow('', null),
+  phone_number: Joi.string().pattern(/^\+?[0-9]{10,15}$/).allow('', null),
   address: Joi.string().allow('', null)
 });
 
 exports.loginSchema = Joi.object({
   email: Joi.string().email().required(),
-  password: Joi.string().required()
+  password: Joi.string().min(8).required()
+});
+
+exports.verificationListQuery = Joi.object({
+  status: Joi.alternatives().try(Joi.string(), Joi.array().items(Joi.string())).optional(),
+  search: Joi.string().allow('').optional(),
+  dateFrom: Joi.date().iso().optional(),
+  dateTo: Joi.date().iso().optional(),
+  page: Joi.number().integer().min(1).default(1),
+  limit: Joi.number().integer().min(1).max(100).default(10)
 });
 
 exports.mapAccountTypeToRole = (t) => ({

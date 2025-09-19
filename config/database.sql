@@ -65,10 +65,19 @@ CREATE TABLE verification_requests (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   certificate_id uuid REFERENCES certificates(id),
   requested_by uuid REFERENCES users(id),
-  status text NOT NULL CHECK (status IN ('PENDING', 'PROCESSING', 'VERIFIED', 'FAILED', 'FRAUD')),
+  status text NOT NULL CHECK (status IN ('PENDING', 'PROCESSING', 'VERIFIED', 'FAILED', 'FRAUD', 'FLAGGED', 'REJECTED')),
   result jsonb,
   created_at timestamptz DEFAULT now()
 );
+
+-- Analytics indexes for dashboard and history
+CREATE INDEX IF NOT EXISTS idx_vr_req_by_created ON verification_requests(requested_by, created_at);
+CREATE INDEX IF NOT EXISTS idx_vr_req_by_status ON verification_requests(requested_by, status);
+CREATE INDEX IF NOT EXISTS idx_vr_created ON verification_requests(created_at);
+
+-- Safe migration for status constraint
+-- ALTER TABLE verification_requests DROP CONSTRAINT IF EXISTS verification_requests_status_check;
+-- ALTER TABLE verification_requests ADD CONSTRAINT verification_requests_status_check CHECK (status IN ('PENDING', 'PROCESSING', 'VERIFIED', 'FAILED', 'FRAUD', 'FLAGGED', 'REJECTED'));
 
 -- Alerts
 CREATE TABLE alerts (

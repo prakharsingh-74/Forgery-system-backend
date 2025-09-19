@@ -14,6 +14,7 @@ const auditRoutes = require('./routes/audit');
 const aiRoutes = require('./routes/ai');
 const hashRoutes = require('./routes/hash');
 const alertRoutes = require('./routes/alerts');
+const dashboardRoutes = require('./routes/dashboard');
 
 
 
@@ -35,6 +36,8 @@ app.use('/subjects', subjectRoutesRoot);
 app.use('/verify', verifyRoutes);
 app.use('/audit', auditRoutes);
 app.use('/ai', aiRoutes);
+
+app.use('/dashboard', dashboardRoutes);
 app.use('/hash', hashRoutes);
 app.use('/alerts', alertRoutes);
 
