@@ -19,10 +19,23 @@ CREATE TABLE users (
   role text NOT NULL CHECK (role IN ('admin', 'institution', 'verifier')),
   verified boolean DEFAULT false,
   institution_id uuid,
+  phone_number text,
+  address text,
+  organization text,
   created_at timestamptz DEFAULT now()
 );
 
 ALTER TABLE users ADD CONSTRAINT fk_users_institution FOREIGN KEY (institution_id) REFERENCES institutions(id);
+-- Migration: Add new columns and index for enhanced registration
+ALTER TABLE users
+  ADD COLUMN organization text,
+  ADD COLUMN phone_number text,
+  ADD COLUMN address text;
+
+CREATE INDEX IF NOT EXISTS idx_user_phone ON users(phone_number);
+-- Ensure email uniqueness regardless of case
+CREATE UNIQUE INDEX IF NOT EXISTS idx_user_email_lower ON users (lower(email));
+CREATE INDEX idx_user_phone ON users(phone_number);
 
 -- Certificates
 CREATE TABLE certificates (
