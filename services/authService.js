@@ -17,10 +17,10 @@ exports.signup = async (payload) => {
   const insert = {
     email,
     password: hashedPassword,
-    name: value.fullName,
+    name: value.name || value.fullName,
     role,
     organization: value.organization || null,
-    phone_number: value.phoneNumber || null,
+    phone_number: value.phone_number || value.phoneNumber || null,
     address: value.address || null,
   };
 
