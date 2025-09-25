@@ -1,5 +1,3 @@
-# Complete Backend Development Prompt for Jharkhand Certificate Verification System
-
 ## Project Overview
 Create a comprehensive Node.js + Express.js backend for the Jharkhand Certificate Verification System with Supabase as the database and storage solution. The system must prevent backdoor frauds through advanced security mechanisms including Change Data Capture (CDC), Database Triggers, Checksum validation, and Role-Based Access Control (RBAC).
 
@@ -251,7 +249,7 @@ SMTP_HOST=your_smtp_host
 SMTP_PORT=587
 SMTP_USER=your_email
 SMTP_PASS=your_password
-FROM_EMAIL=noreply@jharkhand-cert-verify.gov.in
+FROM_EMAIL=govt. mail id
 
 # File Upload
 MAX_FILE_SIZE=10485760
@@ -283,54 +281,7 @@ sequenceDiagram
 
     Note over Client,Database: Authentication & Authorization Flow
 
-    Client->>API: POST /api/auth/register
-    API->>Auth: Validate registration data
-    Auth->>Database: Create user account
-    Database-->>Auth: User created
-    Auth-->>API: User data (no tokens)
-    API-->>Client: 201 - User registered
-
-    Client->>API: POST /api/auth/login
-    API->>Auth: Validate credentials
-    Auth->>Database: Check user credentials
-    Database-->>Auth: User found & verified
-    Auth->>JWT: Generate access & refresh tokens
-    JWT-->>Auth: Tokens created
-    Auth-->>API: Tokens + user data
-    API-->>Client: 200 - Login successful
-
-    Client->>API: GET /api/auth/profile
-    Note over Client,API: Authorization: Bearer {accessToken}
-    API->>Auth: Verify access token
-    Auth->>JWT: Validate token
-    JWT-->>Auth: Token valid
-    Auth->>Database: Get user profile
-    Database-->>Auth: User profile data
-    Auth-->>API: Profile data
-    API-->>Client: 200 - Profile data
-
-    Client->>API: PUT /api/auth/profile
-    Note over Client,API: Authorization: Bearer {accessToken}
-    API->>Auth: Verify token & update profile
-    Auth->>Database: Update user data
-    Database-->>Auth: Updated profile
-    Auth-->>API: Updated profile data
-    API-->>Client: 200 - Profile updated
-
-    Client->>API: POST /api/auth/refresh
-    API->>Auth: Validate refresh token
-    Auth->>JWT: Verify refresh token
-    JWT-->>Auth: Token valid
-    Auth->>JWT: Generate new access token
-    JWT-->>Auth: New access token
-    Auth-->>API: New access token + user data
-    API-->>Client: 200 - Token refreshed
-
-    Client->>API: POST /api/auth/logout
-    Note over Client,API: Authorization: Bearer {accessToken}
-    API->>Auth: Process logout
-    Auth-->>API: Logout confirmation
-    API-->>Client: 200 - Logged out
+   <img width="2091" height="3840" alt="Image" src="https://github.com/user-attachments/assets/020ee619-d827-440c-81c0-9e32b020ad02" />
 
 ### 10. Project Structure
 
